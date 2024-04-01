@@ -1,17 +1,17 @@
-text = 'Hello Zaira'
+text = 'mrttaqrhknsw ih puggrur'
+custom_key = 'happycoding'
 shift = 3
-custom_key = 'python'
 
-def caesar(message, offset):
+def caesar(message, offset, direction = 1):
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     encrypted_text = ''
 
     for char in message.lower():
-        if char == ' ':
+        if not char.isalpha():
             encrypted_text += char
         else:
             index = alphabet.find(char)
-            new_index = (index + offset) % len(alphabet)
+            new_index = (index + offset*direction) % len(alphabet)
             encrypted_text += alphabet[new_index]
     print('plain text:', message)
     print('encrypted text:', encrypted_text)
@@ -23,8 +23,8 @@ def vigenere(message, key, direction = 1):
 
     for char in message.lower():
     
-        # Append space to the message
-        if char == ' ':
+        # Append any non-letter character to the message
+        if not char.isalpha():
             final_message += char
         else:        
             # Find the right key character to encode/decode
@@ -39,9 +39,21 @@ def vigenere(message, key, direction = 1):
     
     return final_message
 
+#encrypt function
+def encrypt(message, key):
+    return vigenere(message, key)
+#decrypt function
+def decrypt(message, key):
+    return vigenere(message, key,-1)
+
 caesar(text, shift)
 caesar(text, 13)
-encryption = vigenere(text, custom_key)
+encryption = encrypt(text, custom_key)
 print(encryption)
-decryption = vigenere(encryption, custom_key, -1)
+decryption = decrypt(encryption, custom_key)
 print(decryption)
+
+print(f'\nEncrypted text: {text}')
+print(f'Key: {custom_key}')
+decryption = decrypt(text, custom_key)
+print(f'\nDecrypted text: {decryption}\n')
